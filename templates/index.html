@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>ffff*lckr v2</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/s.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/i.css') }}">
+		<meta property="og:title" content="ffff*lckr (beta) - find the best photos on flickr using a web of trust"/>
+		<meta property="og:url" content="http://flask.fffflckr.com"/>
+		<meta property="og:image" content="http://flask.fffflckr.com/static/g/ograph-prev.png"/>
+		<meta property="og:site_name" content="ffffl*ckr"/>
+	</head>
+	<body>
+
+		<div id="info-popup" class="js-info-popup">
+			<div class="column">
+				<h3>What is ffffl*ckr?</h3>
+				<p>A tool to discover photography based on a web of trust, based on the assumption that people who create things you like have tastes similar to yours. Before you is a grid of images. Click the down arrow to load that photographer's favorite images. Feel like the pictures coming up aren't to your liking? Scroll back up and click one that is, see what happens.</p>
+				<h3>Why should I connect with flickr?</h3>
+				<p>Connecting with flickr will allow you to get around flickr's nanny filter aka Safe Search, as long as you've already <a href="http://www.flickr.com/account/privacy/">turned it off in your profile</a> (down there at the bottom).</p>
+				<p>Connect and fav will let you add photos to favorites, right from the fffflckr.</p>
+				<h3>I saw one of my photos here, stop stealing my stuff!!</h3>
+				<p>I didn't steal your image. Everything here is read directly from flickr, and you've set up your permissions in such a way that your images are accessible via flickr's API. Every image links back to the original image page. Stop shouting at me just because you don't know the TOS of the websites you use.</p>
+			</div>
+			<div class="column">
+				<div class="icon-cancel-circled js-close-popup close-popup"></div>
+				<h3>Why do you need permission to read my private images?!</h3>
+				<p>Blame flickr. There is almost no granularity in the API. I wish I could get less access to your account, but I can't. ffffl*ckr doesn't do anything with it, anyway - <a href="http://github.com/jedrekk/fffflckr">you can even check the source code</a>.</p>
+				<h3>Where can I keep up to date on fffflckr via social media?</h3>
+				<p>Naw, nobody has ever actually asked this. Still, you can find us on <a href="https://twitter.com/fffflckr" target="_blank">Twitter</a> and <a href="http://facebook.com/fffflckr" target="_blank">Facebook</a>. </p>
+				<h3>Who made this?</h3>
+				<p>I'm <a href="http://jedrek.me" target="_blank">Jedrek Kostecki</a>, a creative developer and general internet type person living in Warsaw, Poland. You can find me at <a href="http://twitter.com/jedrek" target="_blank">@jedrek</a> and <a href="http://flickr.com/jedrek" target="_blank">flickr</a> (nsfw).</p>
+				<p>I originally made the around Christmas 2009 in spaghetti PHP. The current version is a full re-write in Python using the Flask micro-framework. Check it out on <a href="http://github.com/jedrekk/fffflckr" target="_blank">GitHub</a>. It also needs the <a href="http://stuvel.eu/flickrapi" target="_blank">flickrapi for Python</a> to do its magic.</p>
+
+			</div>
+		</div>
+
+		<div id="photoHolder" class="not-responsive">
+
+		</div>
+		<div id="menu">
+			<div id="preloader"></div>
+			<div id="menu-buttons">
+					<div id="fffflckrinfo">What is ffff*lckr?</div>
+				{% if session['perms'] != 'write' %}
+					<a href="{{ url_for('flickr_auth') }}"><div>Connect with flickr</div></a>
+				{% endif %}
+				{% if not session.token %}	
+					<a href="{{ url_for('flickr_auth', fav='fav') }}"><div>Connect with flickr and fav</div></a>
+				{% endif %}
+
+			</div>
+			<div id="logo"></div>
+		</div>
+
+		<div id="error">
+			<h3></h3>
+			<p></p>
+			<div class="button">OK</div>
+		</div>
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='js/jquery.grid-a-licious.js') }}" type="text/javascript"></script>
+        <script src="{{ url_for('static', filename='js/jquery.colorbox-min.js') }}" type="text/javascript"></script>
+        <script src="{{ url_for('static', filename='js/f.js') }}" type="text/javascript"></script>
+
+	</body>
+</html>
